@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claude Usage Tracker</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="header">
+        <img class="header__logo" src="../icons/icon48.png" alt="" width="28" height="28" />
+        <div class="header__meta">
+          <h1 class="header__title" id="popup-title">Claude Usage Tracker</h1>
+          <p class="header__version">
+            <span id="version-label">Version</span>
+            <span id="version">–</span>
+          </p>
+        </div>
+      </header>
+
+      <div class="status">
+        <span class="status__updated" id="status-updated"></span>
+        <button class="status__refresh" id="refresh-btn" type="button">Refresh</button>
+      </div>
+
+      <p class="banner" id="error-banner" hidden></p>
+
+      <section class="cards" id="usage-cards" aria-live="polite">
+        <!-- One card per metric, in METRICS order; hidden until data arrives.
+             data-metric ties each card to its API field. -->
+        <article class="usage-card" data-metric="five_hour" hidden>
+          <div class="usage-card__row">
+            <span class="usage-card__label">Current session</span>
+            <span class="usage-card__pct"></span>
+          </div>
+          <div class="usage-card__track"><div class="usage-card__fill"></div></div>
+          <p class="usage-card__reset"></p>
+        </article>
+        <article class="usage-card" data-metric="seven_day" hidden>
+          <div class="usage-card__row">
+            <span class="usage-card__label">Weekly · All models</span>
+            <span class="usage-card__pct"></span>
+          </div>
+          <div class="usage-card__track"><div class="usage-card__fill"></div></div>
+          <p class="usage-card__reset"></p>
+        </article>
+      </section>
+
+      <nav class="links">
+        <a
+          class="links__item links__item--primary"
+          id="usage-page-link"
+          href="https://claude.ai/settings/usage"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Open claude.ai usage page</a
+        >
+        <div class="links__row">
+          <a class="links__item" id="whats-new" href="../changelog/changelog.html" target="_blank"
+            >What's New</a
+          >
+          <span class="links__dot" aria-hidden="true">·</span>
+          <a
+            class="links__item"
+            id="contribute-link"
+            href="https://github.com/therohanparmar/claude-usage-tracker"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          >
+          <span class="links__dot" aria-hidden="true">·</span>
+          <a
+            class="links__item"
+            id="privacy-link"
+            href="https://github.com/therohanparmar/claude-usage-tracker/blob/main/PRIVACY.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Privacy Policy</a
+          >
+        </div>
+      </nav>
+    </main>
+    <script src="../shared.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

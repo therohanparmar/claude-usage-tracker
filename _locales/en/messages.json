@@ -1,0 +1,154 @@
+{
+  "extensionName": {
+    "message": "Claude Usage Tracker",
+    "description": "Extension name shown in the browser toolbar and web store. Keep 'Claude' untranslated as a brand name."
+  },
+  "extensionDescription": {
+    "message": "See your Claude usage limits at a glance - session, weekly, and Claude Code - without opening the settings page.",
+    "description": "Extension description for the web store listing. Keep 'Claude' and 'Claude Code' untranslated as brand names."
+  },
+  "extensionTitle": {
+    "message": "Claude Usage Tracker",
+    "description": "Tooltip title shown when hovering the toolbar icon."
+  },
+  "versionLabel": {
+    "message": "Version",
+    "description": "Label preceding the extension version number in the popup header."
+  },
+  "metricFiveHour": {
+    "message": "Current session",
+    "description": "Label for the 5-hour rolling usage window."
+  },
+  "metricSevenDay": {
+    "message": "Weekly · All models",
+    "description": "Label for the 7-day usage window covering all models."
+  },
+  "resetsIn": {
+    "message": "Resets in $TIME$",
+    "description": "Shown under a usage bar; $TIME$ is a duration like '2h 15m'.",
+    "placeholders": {
+      "time": { "content": "$1", "example": "2h 15m" }
+    }
+  },
+  "resetsAt": {
+    "message": "Resets $TIME$",
+    "description": "Shown under a weekly usage bar; $TIME$ is an absolute day/time like 'Mon 2:29 PM'.",
+    "placeholders": {
+      "time": { "content": "$1", "example": "Mon 2:29 PM" }
+    }
+  },
+  "resetsSoon": {
+    "message": "Resets soon",
+    "description": "Shown when the reset time is now or in the past."
+  },
+  "updatedAgo": {
+    "message": "Updated $TIME$ ago",
+    "description": "Freshness line in the popup; $TIME$ is a duration like '2m'.",
+    "placeholders": {
+      "time": { "content": "$1", "example": "2m" }
+    }
+  },
+  "updatedJustNow": {
+    "message": "Updated just now",
+    "description": "Freshness line when data is under a minute old."
+  },
+  "staleData": {
+    "message": "Showing older data - last refresh failed.",
+    "description": "Shown when the latest refresh failed but a previous snapshot exists."
+  },
+  "refreshNow": {
+    "message": "Refresh",
+    "description": "Button that fetches fresh usage data immediately."
+  },
+  "errSignedOut": {
+    "message": "No claude.ai session found. Sign in to claude.ai (or just visit it once), then click Refresh.",
+    "description": "Error banner when no session cookie is available. Visiting claude.ai also repopulates the org cookie for users who are already signed in."
+  },
+  "signInLink": {
+    "message": "Open claude.ai",
+    "description": "Action link shown inside the signed-out banner."
+  },
+  "errBlocked": {
+    "message": "Could not reach the usage API. Open claude.ai in a tab and refresh.",
+    "description": "Error banner when the background fetch is blocked and no claude.ai tab is open."
+  },
+  "errNetwork": {
+    "message": "Network error while fetching usage data.",
+    "description": "Error banner for connection failures."
+  },
+  "errBadShape": {
+    "message": "Unexpected response from claude.ai - the usage API may have changed.",
+    "description": "Error banner when the API response has no recognizable usage fields."
+  },
+  "noData": {
+    "message": "No usage data yet. Click Refresh to fetch.",
+    "description": "Empty state before the first successful fetch."
+  },
+  "openUsagePage": {
+    "message": "Open claude.ai usage page",
+    "description": "Link to https://claude.ai/settings/usage."
+  },
+  "notifTitle": {
+    "message": "Claude usage alert",
+    "description": "Title of the desktop notification."
+  },
+  "notifBody": {
+    "message": "$METRIC$ is at $PCT$% - resets in $TIME$.",
+    "description": "Body of the desktop notification.",
+    "placeholders": {
+      "metric": { "content": "$1", "example": "Current session" },
+      "pct": { "content": "$2", "example": "90" },
+      "time": { "content": "$3", "example": "2h 15m" }
+    }
+  },
+  "badgeTitleSummary": {
+    "message": "Claude usage: $SUMMARY$",
+    "description": "Toolbar icon hover title; $SUMMARY$ is like 'session 42% · week 61%'.",
+    "placeholders": {
+      "summary": { "content": "$1", "example": "session 42% · week 61%" }
+    }
+  },
+  "contributeGithub": {
+    "message": "GitHub",
+    "description": "Footer link to the project repository."
+  },
+  "privacyPolicy": {
+    "message": "Privacy Policy",
+    "description": "Footer link to the privacy policy."
+  },
+  "whatsNew": {
+    "message": "What's New",
+    "description": "Title of the changelog page and the popup link to it."
+  },
+  "privacyShort": {
+    "message": "Privacy",
+    "description": "Short privacy link label in the changelog footer."
+  },
+  "latest": {
+    "message": "Latest",
+    "description": "Tag shown on the newest changelog entry."
+  },
+  "subtitleWelcome": {
+    "message": "Thanks for installing Claude Usage Tracker! Here's what the extension does and how it evolves over time.",
+    "description": "Changelog subtitle shown right after installation."
+  },
+  "subtitleDefault": {
+    "message": "Track how Claude Usage Tracker has evolved. Each release below highlights the most important improvements shipped to you.",
+    "description": "Changelog subtitle shown when opened after an update or manually."
+  },
+  "socialLinksAriaLabel": {
+    "message": "Rohan Parmar on social platforms",
+    "description": "Accessibility label for the social links row on the changelog page."
+  },
+  "websiteAriaLabel": {
+    "message": "Website",
+    "description": "Accessibility label for the personal website icon link."
+  },
+  "footerMeta": {
+    "message": "Claude Usage Tracker · © $YEAR$ Rohan Parmar",
+    "description": "Changelog footer credit line.",
+    "placeholders": {
+      "year": { "content": "$1", "example": "2026" }
+    }
+  }
+}

@@ -1,0 +1,234 @@
+/**
+ * Claude Usage Tracker - popup.css
+ * Tokens in :root with a dark override, matching the conventions of the
+ * author's other extensions. Level colors are consumed via [data-level].
+ */
+
+:root {
+  --accent: #e67e3c;
+  --accent-hover: #d06a2b;
+  --bg: #ffffff;
+  --text: #1f2328;
+  --text-muted: #656d76;
+  --border: #d0d7de;
+  --track: #eaeef2;
+  --level-ok: #15803d;
+  --level-warn: #b45309;
+  --level-critical: #b91c1c;
+  --banner-bg: #fff4e5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: #e67e3c;
+    --accent-hover: #f08c4a;
+    --bg: #1e2128;
+    --text: #eceef2;
+    --text-muted: #9aa2ad;
+    --border: #3a3f4a;
+    --track: #2c313a;
+    --level-ok: #4ade80;
+    --level-warn: #fbbf24;
+    --level-critical: #f87171;
+    --banner-bg: #3a2e1e;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.popup {
+  padding: 14px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.header__version {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* Status row */
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status__updated {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.status__refresh {
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.status__refresh:hover {
+  background: var(--accent-hover);
+}
+
+.status__refresh:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.status__refresh:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Error banner */
+.banner {
+  background: var(--banner-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.banner__link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.banner__link:hover {
+  text-decoration: underline;
+}
+
+.banner__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Usage cards */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.usage-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.usage-card__label {
+  font-weight: 600;
+}
+
+.usage-card__pct {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.usage-card__pct[data-level="ok"] { color: var(--level-ok); }
+.usage-card__pct[data-level="warn"] { color: var(--level-warn); }
+.usage-card__pct[data-level="critical"] { color: var(--level-critical); }
+
+.usage-card__track {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.usage-card__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.usage-card__fill[data-level="ok"] { background: var(--level-ok); }
+.usage-card__fill[data-level="warn"] { background: var(--level-warn); }
+.usage-card__fill[data-level="critical"] { background: var(--level-critical); }
+
+.usage-card__reset {
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* Footer links: primary action on its own line, meta links below. */
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+.links__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.links__dot {
+  color: var(--text-muted);
+}
+
+.links__item {
+  color: var(--accent);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.links__item--primary {
+  font-weight: 600;
+}
+
+.links__item:hover {
+  text-decoration: underline;
+}
+
+.links__item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .usage-card__fill,
+  .status__refresh {
+    transition: none;
+  }
+}

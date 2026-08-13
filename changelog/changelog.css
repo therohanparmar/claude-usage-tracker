@@ -8,22 +8,23 @@
 :root {
   --accent: #c96442;
   --accent-soft: rgba(201, 100, 66, 0.12);
-  --blue: #2563eb;
+  /* Older releases get a muted brown dot so "Latest" stays the standout. */
+  --dot-past: #a58573;
 
-  --page-bg-from: #eef2fb;
-  --page-bg-to: #ecf9f1;
+  --page-bg-from: #faf6f0;
+  --page-bg-to: #f2e2d6;
   --surface: #ffffff;
-  --surface-2: #f6faf7;
-  --border: #e6e8ec;
-  --rail: #cdd5e0;
+  --surface-2: #fdf8f4;
+  --border: #ece1d8;
+  --rail: #dcc9bb;
 
-  --text: #16181c;
-  --text-muted: #5c6670;
-  --text-soft: #737d87;
+  --text: #1f1a16;
+  --text-muted: #6b5648;
+  --text-soft: #8a7566;
 
-  --tag-bg: #eef1f4;
-  --tag-fg: #58626c;
-  --link: #2563eb;
+  --tag-bg: #f4ece5;
+  --tag-fg: #6b5648;
+  --link: #c96442;
   --glow: rgba(217, 119, 87, 0.28);
 }
 
@@ -31,22 +32,22 @@
   :root {
     --accent: #d97757;
     --accent-soft: rgba(217, 119, 87, 0.16);
-    --blue: #4f83f0;
+    --dot-past: #7c6558;
 
-    --page-bg-from: #0c0e12;
-    --page-bg-to: #0d1512;
-    --surface: #16191e;
-    --surface-2: #1a1f24;
-    --border: #272c33;
-    --rail: #333b45;
+    --page-bg-from: #14100e;
+    --page-bg-to: #1d1512;
+    --surface: #1e1a18;
+    --surface-2: #24201d;
+    --border: #342c27;
+    --rail: #443830;
 
-    --text: #f1f3f5;
-    --text-muted: #9aa4ad;
-    --text-soft: #8a949d;
+    --text: #f5f0ec;
+    --text-muted: #b0a096;
+    --text-soft: #9a8a80;
 
-    --tag-bg: #232830;
-    --tag-fg: #aab3bd;
-    --link: #7aa5f5;
+    --tag-bg: #2c2521;
+    --tag-fg: #bdaea4;
+    --link: #e0906f;
     --glow: rgba(217, 119, 87, 0.22);
   }
 }
@@ -204,7 +205,7 @@ body {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: var(--blue);
+  background-color: var(--dot-past);
   border: 3px solid var(--surface);
   box-shadow: 0 0 0 3px var(--page-bg-to);
 }

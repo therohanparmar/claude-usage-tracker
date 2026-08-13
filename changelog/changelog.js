@@ -30,7 +30,7 @@
 const CHANGELOG = [
   {
     version: "1.0.0",
-    date: "2026-08-12",
+    date: "2026-08-15",
     tag: "First Release",
     summary:
       "Your Claude usage limits, always one click away - live in your browser toolbar.",

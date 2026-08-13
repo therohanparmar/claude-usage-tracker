@@ -4,11 +4,31 @@ Thanks for your interest in improving **Claude Usage Tracker**! This is a tiny,
 zero-dependency Chrome/Firefox extension (plain HTML/CSS/JS, Manifest V3) - no
 build step required.
 
-**One codebase, two manifests.** Chrome runs the background as a service
-worker; Firefox runs it as an event page. `manifest.json` targets Chromium
-browsers, and `manifest.firefox.json` is the identical Firefox variant - only
-the `background` section differs. `background.js` itself is shared and detects
-which environment it is in.
+**One codebase ships to both browsers.** A single `manifest.json` works for
+Chrome and Firefox: Chrome ignores `browser_specific_settings.gecko`, while
+Firefox requires it for signing. No separate build or folder.
+
+The one wrinkle is the background script. Firefox does not support
+`background.service_worker` at all, so the manifest declares both keys -
+Chrome uses `service_worker`, Firefox uses `scripts` and ignores the other
+(this is the [pattern MDN recommends](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background)):
+
+```json
+"background": {
+  "service_worker": "background.js",
+  "scripts": ["shared.js", "background.js"]
+}
+```
+
+Two consequences worth knowing:
+
+- Chrome logs a cosmetic warning (`'background.scripts' requires manifest
+  version of 2 or lower`) and loads normally. It is safe to ignore.
+- Chrome's worker pulls in `shared.js` via `importScripts`, which does not
+  exist in a Firefox event page - so `background.js` guards that call with
+  `typeof importScripts === "function"` and Firefox loads `shared.js` from
+  the `scripts` array instead. Keep that guard if you touch the top of the
+  file.
 
 First, clone the repository:
 
@@ -28,11 +48,9 @@ git clone https://github.com/therohanparmar/claude-usage-tracker.git
 
 ### Firefox
 
-1. Swap in the Firefox manifest: `cp manifest.firefox.json manifest.json`
-   (remember not to commit that swap).
-2. Open `about:debugging#/runtime/this-firefox`.
-3. Click **Load Temporary Add-on…** and select `manifest.json`.
-4. If no data loads, open `about:addons` → Claude Usage Tracker →
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on…** and select `manifest.json`.
+3. If no data loads, open `about:addons` → Claude Usage Tracker →
    **Permissions** and allow access for claude.ai - Firefox treats host
    access as opt-in.
 
@@ -43,8 +61,7 @@ git clone https://github.com/therohanparmar/claude-usage-tracker.git
 
 ```
 claude-usage-tracker/
-├── manifest.json          # Manifest V3 configuration (Chromium)
-├── manifest.firefox.json  # Firefox variant (event-page background)
+├── manifest.json          # Manifest V3 config (Chrome + Firefox)
 ├── shared.js              # METRICS table + pure helpers (both contexts)
 ├── background.js          # Alarm, fetch, normalize, store, badge, alerts
 ├── content.js             # Fallback fetcher on claude.ai tabs (inert otherwise)

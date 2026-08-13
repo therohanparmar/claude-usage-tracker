@@ -1,6 +1,6 @@
 # Privacy Policy - Claude Usage Tracker
 
-**Last updated: August 12, 2026**
+**Last updated: August 15, 2026**
 
 Claude Usage Tracker is built to be private by design.
 

@@ -187,6 +187,63 @@ body {
   font-size: 11px;
 }
 
+/* Settings row: label left, switch right. The native checkbox stays
+   focusable but visually hidden; .setting__switch draws the control. */
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.setting__label {
+  font-weight: 600;
+}
+
+.setting__checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.setting__switch {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--track);
+  border: 1px solid var(--border);
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.setting__switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease;
+}
+
+.setting__checkbox:checked + .setting__switch {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.setting__checkbox:checked + .setting__switch::after {
+  transform: translateX(14px);
+}
+
+.setting__checkbox:focus-visible + .setting__switch {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Footer links: primary action on its own line, meta links below. */
 .links {
   display: flex;
@@ -228,7 +285,9 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .usage-card__fill,
-  .status__refresh {
+  .status__refresh,
+  .setting__switch,
+  .setting__switch::after {
     transition: none;
   }
 }

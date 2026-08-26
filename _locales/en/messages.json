@@ -88,6 +88,10 @@
     "message": "Open claude.ai usage page",
     "description": "Link to https://claude.ai/settings/usage."
   },
+  "notifyToggleLabel": {
+    "message": "Usage alerts",
+    "description": "Label for the popup switch that turns desktop notifications on or off."
+  },
   "notifTitle": {
     "message": "Claude usage alert",
     "description": "Title of the desktop notification."

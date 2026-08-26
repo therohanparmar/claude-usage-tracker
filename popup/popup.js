@@ -24,6 +24,7 @@ const localize = () => {
     "usage-page-link": "openUsagePage",
     "contribute-link": "contributeGithub",
     "privacy-link": "privacyPolicy",
+    "notify-label": "notifyToggleLabel",
   };
   for (const [id, messageName] of Object.entries(textIds)) {
     const el = document.getElementById(id);
@@ -146,8 +147,35 @@ const loadAndRender = () => {
   );
 };
 
+/**
+ * Wire the notification on/off switch: reflect the stored setting
+ * (default on) and persist flips. The background worker reads the
+ * setting on every refresh, so no message round-trip is needed.
+ */
+const initNotifyToggle = () => {
+  const toggle = document.getElementById("notify-toggle");
+  if (!toggle) return;
+  chrome.storage.local.get(
+    { settings: { notificationsEnabled: true } },
+    ({ settings }) => {
+      toggle.checked = settings.notificationsEnabled !== false;
+    }
+  );
+  toggle.addEventListener("change", () => {
+    chrome.storage.local.get(
+      { settings: { notificationsEnabled: true } },
+      ({ settings }) => {
+        chrome.storage.local.set({
+          settings: { ...settings, notificationsEnabled: toggle.checked },
+        });
+      }
+    );
+  });
+};
+
 const init = () => {
   localize();
+  initNotifyToggle();
 
   const version = document.getElementById("version");
   if (version) version.textContent = chrome.runtime.getManifest().version;

@@ -6,7 +6,8 @@
  * usage API with the user's existing session cookies, and stores a
  * normalized snapshot in chrome.storage.local. It
  * also drives the toolbar badge and fires one desktop notification per
- * threshold per reset window.
+ * threshold per reset window (unless the user turns alerts off in the
+ * popup - `settings.notificationsEnabled`, on by default).
  *
  * Privacy: the only host contacted is claude.ai, the only cookie read is
  * `lastActiveOrg` (its value is used for the request URL and never
@@ -30,6 +31,9 @@ const ORG_COOKIE_NAME = "lastActiveOrg";
 const REFRESH_ALARM = "refresh-usage";
 const REFRESH_PERIOD_MINUTES = 5;
 const NOTIFY_THRESHOLDS = [70, 80, 90, 95];
+// User preferences, editable from the popup. Kept in storage under
+// `settings` so future options slot in without a migration.
+const DEFAULT_SETTINGS = { notificationsEnabled: true };
 const BADGE_COLORS = {
   ok: "#15803d",
   warn: "#b45309",
@@ -171,25 +175,33 @@ const updateBadge = async (snapshot) => {
 
 /**
  * Fire at most one notification per metric per refresh, for the highest
- * newly crossed threshold. The dedupe map is keyed on
- * `${metric}|${resets_at}` so "once per threshold per reset window"
- * holds across service-worker restarts, and keys from past windows are
- * pruned as their reset time lapses.
+ * newly crossed threshold. The dedupe map stores the highest threshold
+ * already notified per metric key. It is deliberately NOT keyed on
+ * `resets_at`: that value can shift between fetches for rolling windows,
+ * which would wipe the dedupe state and re-notify on every refresh. The
+ * entry is cleared only when utilization drops back below every
+ * threshold - i.e. the window really did reset - so notifications fire
+ * again in the next window.
+ *
+ * When `enabled` is false no notification is created, but the dedupe
+ * map is still advanced - thresholds crossed while muted stay recorded,
+ * so re-enabling alerts doesn't replay them.
  *
  * @returns {object} the updated dedupe map to persist
  */
-const checkNotifications = (metrics, notifiedMap, now) => {
+const checkNotifications = (metrics, notifiedMap, now, enabled) => {
   const next = {};
   for (const [key, entry] of Object.entries(metrics)) {
     if (!entry) continue;
-    const windowKey = `${key}|${entry.resetsAt || "none"}`;
-    const already = notifiedMap[windowKey] || [];
     const crossed = NOTIFY_THRESHOLDS.filter(
       (threshold) => entry.utilization >= threshold
     );
-    const fresh = crossed.filter((threshold) => !already.includes(threshold));
-    if (fresh.length > 0) {
-      const highest = Math.max(...fresh);
+    // Below all thresholds: the window reset - drop the record so the
+    // next climb notifies again.
+    if (crossed.length === 0) continue;
+    const highest = Math.max(...crossed);
+    const already = Number(notifiedMap[key]) || 0;
+    if (enabled && highest > already) {
       const remaining = formatRemaining(entry.resetsAt, now);
       chrome.notifications.create(`usage-${key}-${highest}`, {
         type: "basic",
@@ -202,7 +214,9 @@ const checkNotifications = (metrics, notifiedMap, now) => {
         ]),
       });
     }
-    if (crossed.length > 0) next[windowKey] = crossed;
+    // Math.max keeps the record sticky through small downward jitter
+    // (e.g. 90% -> 89%) so a re-climb over 90 doesn't re-notify.
+    next[key] = Math.max(already, highest);
   }
   return next;
 };
@@ -212,14 +226,32 @@ const checkNotifications = (metrics, notifiedMap, now) => {
  * On failure the previous good snapshot is kept and only `error` is set,
  * so the popup can show stale data instead of nothing.
  *
+ * Concurrent callers (popup open racing the alarm) share one in-flight
+ * run: overlapping runs would both read the pre-update dedupe map and
+ * double-notify. The guard is in-memory only, which is safe - a worker
+ * restart mid-run just means the next trigger starts a fresh run.
+ *
  * @param {"startup"|"alarm"|"manual"} trigger
  * @returns {Promise<object>} the stored snapshot
  */
-const refreshUsage = async (trigger) => {
+let refreshInFlight = null;
+const refreshUsage = (trigger) => {
+  if (!refreshInFlight) {
+    refreshInFlight = doRefreshUsage(trigger).finally(() => {
+      refreshInFlight = null;
+    });
+  }
+  return refreshInFlight;
+};
+
+const doRefreshUsage = async (trigger) => {
   const stored = await chrome.storage.local.get({
     usageSnapshot: { fetchedAt: 0, ok: false, error: null, metrics: {} },
     notifiedThresholds: {},
+    settings: DEFAULT_SETTINGS,
   });
+  // Merge so settings added in future versions get their defaults.
+  const settings = { ...DEFAULT_SETTINGS, ...stored.settings };
   const now = Date.now();
 
   /** Persist an error while preserving the last good metrics. */
@@ -272,7 +304,8 @@ const refreshUsage = async (trigger) => {
   const notifiedThresholds = checkNotifications(
     metrics,
     stored.notifiedThresholds,
-    now
+    now,
+    settings.notificationsEnabled
   );
 
   // One write for snapshot + dedupe map keeps storage churn low.

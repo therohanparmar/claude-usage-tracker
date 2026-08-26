@@ -100,7 +100,7 @@ for developer setup, how it works, and the project structure.
 
 ## Author
 
-**Rohan Parmar** - [LinkedIn](https://www.linkedin.com/in/rohanrparmar) · [X / Twitter](https://x.com/rohan__parmar)
+**Rohan Parmar** - [LinkedIn](https://www.linkedin.com/in/therohanparmar) · [X / Twitter](https://x.com/therohanparmar)
 
 ---
 
@@ -112,4 +112,4 @@ Anthropic, PBC. The extension reads an internal claude.ai endpoint that
 Anthropic may change at any time; if data stops loading, check for an
 update or open an issue.
 
-<p align="center"><sub><strong>Claude Usage Tracker</strong> · v1.0.0 · by <a href="https://www.linkedin.com/in/rohanrparmar">Rohan Parmar</a></sub></p>
+<p align="center"><sub><strong>Claude Usage Tracker</strong> · v1.1.0 · by <a href="https://www.linkedin.com/in/therohanparmar">Rohan Parmar</a></sub></p>

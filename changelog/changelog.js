@@ -29,6 +29,26 @@
 /** @type {Release[]} */
 const CHANGELOG = [
   {
+    version: "1.1.0",
+    date: "2026-08-28",
+    tag: "Minor Release",
+    summary: "Alerts you control - a new on/off switch, plus a fix for repeated notifications.",
+    changes: [
+      {
+        lead: "Alerts Toggle",
+        text: "A new *Usage alerts* switch in the popup lets you turn desktop notifications off (and back on) anytime. Alerts are on by default, and the toolbar badge keeps updating either way.",
+      },
+      {
+        lead: "No More Repeat Alerts",
+        text: "Fixed a bug where the same threshold alert (say, 70%) could fire again after every prompt. Each threshold now notifies exactly once per reset window, as intended.",
+      },
+      {
+        lead: "Quieter Re-enabling",
+        text: "Thresholds crossed while alerts are switched off are not replayed when you switch them back on - you only hear about the next new one.",
+      },
+    ],
+  },
+  {
     version: "1.0.0",
     date: "2026-08-15",
     tag: "First Release",

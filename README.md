@@ -8,27 +8,27 @@
 
 <!-- TODO: replace # with the real store listing URLs after publishing. -->
 <p align="center">
-  <a href="https://chromewebstore.google.com/detail/fmjhglncijcinacolmmaepghmgcloljf" title="Chrome Web Store">
+  <a href="https://chromewebstore.google.com/detail/claude-usage-tracker/ibbbfociocdmchiebebljlhbeohccikk" title="Chrome Web Store">
     <img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/chrome/chrome.svg" width="56" alt="Add to Chrome" valign="middle" />
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://chromewebstore.google.com/detail/fmjhglncijcinacolmmaepghmgcloljf" title="Brave Web Store">
+  <a href="https://chromewebstore.google.com/detail/claude-usage-tracker/ibbbfociocdmchiebebljlhbeohccikk" title="Brave Web Store">
     <img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/brave/brave.svg" width="56" alt="Add to Brave" valign="middle" />
   </a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://addons.mozilla.org/en-US/firefox/addon/read-on-freedium/" title="Mozilla Add-ons">
+  <a href="#" title="Mozilla Add-ons">
     <img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/firefox/firefox.svg" width="56" alt="Add to Firefox" valign="middle" />
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://chromewebstore.google.com/detail/fmjhglncijcinacolmmaepghmgcloljf" title="Microsoft Edge Add-ons">
+  <a href="https://chromewebstore.google.com/detail/claude-usage-tracker/ibbbfociocdmchiebebljlhbeohccikk" title="Microsoft Edge Add-ons">
     <img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/edge/edge.svg" width="56" alt="Add to Edge" valign="middle" />
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://chromewebstore.google.com/detail/fmjhglncijcinacolmmaepghmgcloljf" title="Opera Add-ons">
+  <a href="https://chromewebstore.google.com/detail/claude-usage-tracker/ibbbfociocdmchiebebljlhbeohccikk" title="Opera Add-ons">
     <img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/opera/opera.svg" width="56" alt="Add to Opera" valign="middle" />
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://chromewebstore.google.com/detail/fmjhglncijcinacolmmaepghmgcloljf" title="Vivaldi Add-ons">
+  <a href="https://chromewebstore.google.com/detail/claude-usage-tracker/ibbbfociocdmchiebebljlhbeohccikk" title="Vivaldi Add-ons">
     <img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/vivaldi/vivaldi.svg" width="56" alt="Add to Vivaldi" valign="middle" />
   </a>
 </p>
